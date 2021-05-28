@@ -48,6 +48,7 @@ def process_data(data: dict) -> List:
 @app.route("/price/", methods=["POST"])
 def price_predict() -> str:
     if request.method == "POST":
+        db_connection.commit()
         try:
             try:
                 features = process_data(json.loads(request.data))  # send dict
@@ -67,6 +68,7 @@ def price_predict() -> str:
 @app.route("/history/", methods=["GET"])
 def history() -> str:
     if request.method == "GET":
+        db_connection.commit()
         cur.execute(f"SELECT * FROM history ORDER BY id DESC LIMIT 10")
         rows = cur.fetchall()
         return json.dumps(
