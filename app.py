@@ -41,7 +41,7 @@ model = pickle.load(open(SAVED_MODEL_PATH, "rb"))
 app = Flask(__name__)
 
 
-def process_data(data: dict) -> List:
+def process_data(data: dict) -> List: # write function
     return data
 
 
@@ -69,7 +69,10 @@ def price_predict() -> str:
 def history() -> str:
     if request.method == "GET":
         db_connection.commit()
-        cur.execute(f"SELECT * FROM history ORDER BY id DESC LIMIT 10")
+        try:
+            cur.execute(f"SELECT * FROM history ORDER BY id DESC LIMIT 10")
+        except:
+            return json.dumps({"error": "COULD NOT RETRIEVE RECORDS"}), 400
         rows = cur.fetchall()
         return json.dumps(
             [
