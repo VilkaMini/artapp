@@ -18,13 +18,11 @@ cur = db_connection.cursor()
 try:
     cur.execute(
         """CREATE TABLE history(
-            id serial primary key, 
-            artist varchar(100), 
-            type varchar(50),
-            title varchar(200),
+            id serial primary key,
+            type varchar(20),
             year int,
-            category varchar(100),
-            medium varchar(100),
+            category varchar(20),
+            medium varchar(30),
             size_y int,
             size_x int,
             size_z int,
@@ -35,29 +33,34 @@ try:
 except:
     pass
 
-SAVED_MODEL_PATH = "art_model.pkl"
-model = pickle.load(open(SAVED_MODEL_PATH, "rb"))
+model = pickle.load(open("regression_model.pkl", "rb"))
+enc_type = pickle.load(open("encoder_type", "rb"))
+enc_category = pickle.load(open("encoder_category", "rb"))
+enc_medium = pickle.load(open("encoder_medium", "rb"))
+enc_condition = pickle.load(open("encoder_condition", "rb"))
 
 app = Flask(__name__)
 
 
-def process_data(data: dict) -> List: # write function
+def process_data(data: json) -> List: # write function
+    print(data)
     return data
 
 
-@app.route("/price/", methods=["POST"])
+@app.route("/price", methods=["POST"])
 def price_predict() -> str:
     if request.method == "POST":
         db_connection.commit()
         try:
             try:
-                features = process_data(json.loads(request.data))  # send dict
+                features = process_data(request.data.decode('utf-8'))  # send dict
             except:
                 return (
                     json.dumps({"error": "CHECK IF INPUT IS FORMATED CORRECTLY"}),
                     400,
                 )
             predictions = model.predict(features)
+            # Database filling
             return json.dumps({"predicted": predictions.tolist()}), 200
         except:
             return json.dumps({"error": "MODEL FAILED TO PREDICT THE PRICE"}), 400
@@ -77,16 +80,14 @@ def history() -> str:
         return json.dumps(
             [
                 {
-                    "artist": rows[1],
-                    "type": rows[2],
-                    "title": rows[3],
-                    "year": rows[4],
-                    "category": rows[5],
-                    "medium": rows[6],
-                    "size_y": rows[7],
-                    "size_x": rows[8],
-                    "size_z": rows[9],
-                    "price": rows[10],
+                    "type": rows[1],
+                    "year": rows[2],
+                    "category": rows[3],
+                    "medium": rows[4],
+                    "size_y": rows[5],
+                    "size_x": rows[6],
+                    "size_z": rows[7],
+                    "price": rows[8],
                 }
             ]
         )
