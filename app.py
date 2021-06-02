@@ -156,15 +156,16 @@ def history() -> str:
         return json.dumps(
             [
                 {
-                    "type": rows[1],
-                    "year": rows[2],
-                    "category": rows[3],
-                    "medium": rows[4],
-                    "size_y": rows[5],
-                    "size_x": rows[6],
-                    "size_z": rows[7],
-                    "price": rows[8],
+                    "type": row[1],
+                    "year": row[2],
+                    "category": row[3],
+                    "medium": row[4],
+                    "size_y": row[5],
+                    "size_x": row[6],
+                    "size_z": row[7],
+                    "price": row[8],
                 }
+                for row in rows
             ]
         )
     else:
