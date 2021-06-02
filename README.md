@@ -6,7 +6,9 @@ This repository is a fully functional REST API that can predict art prices given
         1. A dictionary with these 8 values.
             1. type -> One of these: ['Original artwork', 'Multiple'].
             2. year -> For more accurate results pick years from range: [1990-2020].
-            3. category -> One of these: ['Painting', 'Drawing-Watercolor', 'Print-Multiple', 'Photography', 'Sculpture-Volume'].
+            3. category -> One of these: ['Painting', 'Drawing-Watercolor', 
+                                          'Print-Multiple', 'Photography', 
+                                          'Sculpture-Volume'].
             4. medium -> ['Oil/canvas', 'Acrylic', 'Mixed media', 'Watercolour', 'Lithograph', 
                             'Mixed media/paper', 'Oil/panel', 'Oil', 'Etching', 'Silkscreen', 
                             'Bronze', 'Gelatin silver print', 'Indian ink', 'Ink', 'C print'].
