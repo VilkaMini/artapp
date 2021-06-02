@@ -10,8 +10,8 @@ This repository is a fully functional REST API that can predict art prices given
                                           'Print-Multiple', 'Photography', 
                                           'Sculpture-Volume'].
             4. medium -> ['Oil/canvas', 'Acrylic', 'Mixed media', 'Watercolour', 'Lithograph', 
-                            'Mixed media/paper', 'Oil/panel', 'Oil', 'Etching', 'Silkscreen', 
-                            'Bronze', 'Gelatin silver print', 'Indian ink', 'Ink', 'C print'].
+                          'Mixed media/paper', 'Oil/panel', 'Oil', 'Etching', 'Silkscreen', 
+                          'Bronze', 'Gelatin silver print', 'Indian ink', 'Ink', 'C print'].
             5. size_y -> Width of the artpiece in centimeters. Accurate range: [0, 999].
             6. size_x -> Height of the artpiece in centimeters. Accurate range: [0, 999].
             7. size_z -> Depth of the artpiece in centimeters. Accurate range: [0, 999].
