@@ -127,15 +127,16 @@ def price_predict() -> str:
                     400,
                 )
             predictions = model.predict(features)
-            # Database filling
             try:
-                cur.execute(f"""
-                             INSERT INTO history(type, year, category, medium, size_y, size_x, size_z, price)
-                             VALUES ('{data['type']}', {data['year']}, '{data['category']}', '{data['medium']}', {data['size_y']}, {data['size_x']}, {data['size_z']}, {predictions[0]})
-                             """)
+                cur.execute(
+                    f"""
+                    INSERT INTO history(type, year, category, medium, size_y, size_x, size_z, price)
+                    VALUES ('{data['type']}', {data['year']}, '{data['category']}', '{data['medium']}', {data['size_y']}, {data['size_x']}, {data['size_z']}, {predictions[0]})
+                    """
+                )
                 db_connection.commit()
-            except Exception as e:
-                print(e)
+            except:
+                pass
             return json.dumps({"predicted": predictions.tolist()}), 200
         except:
             return json.dumps({"error": "MODEL FAILED TO PREDICT THE PRICE"}), 400
@@ -152,7 +153,6 @@ def history() -> str:
         except:
             return json.dumps({"error": "COULD NOT RETRIEVE RECORDS"}), 400
         rows = cur.fetchall()
-        print(rows)
         return json.dumps(
             [
                 {
