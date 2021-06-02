@@ -1,5 +1,4 @@
 from flask import Flask, request
-from typing import List
 import json
 import pickle
 import numpy as np
@@ -153,6 +152,7 @@ def history() -> str:
         except:
             return json.dumps({"error": "COULD NOT RETRIEVE RECORDS"}), 400
         rows = cur.fetchall()
+        print(rows)
         return json.dumps(
             [
                 {
